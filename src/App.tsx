@@ -36,7 +36,7 @@ function App() {
           "x-trading-secret": inputText,
         }
       }
-      ).then((res: AxiosResponse) => {
+      ).then(() => {
         setstatus(false)
         setNeedPass(false)
         setfeiledPass(false)
@@ -53,7 +53,7 @@ function App() {
           "x-trading-secret": inputText,
         }
       }
-      ).then((res: AxiosResponse) => {
+      ).then(() => {
         setstatus(true)
         setNeedPass(false)
         setfeiledPass(false)
