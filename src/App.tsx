@@ -20,14 +20,12 @@ function App() {
   useEffect(() => {
     api.get<ITradeInfo[]>('/trade/getTradeInfo').then((res) => {
       setTradeInfo(res.data)
-      console.log(res.data);
+      
       
     })
   }, [])
 
-  useEffect(() => {
-    console.log(tradeInfo);
-  }, [tradeInfo])
+ 
 
   useEffect(() => {
     setLoading(true)

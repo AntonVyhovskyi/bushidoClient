@@ -7,7 +7,7 @@ interface TradeInfoComponentProps {
 }
 
 const TradeInfoComponent: FunctionComponent<TradeInfoComponentProps> = ({ infoArray }) => {
-    console.log({inComponent:infoArray});
+
     
     return (
 
