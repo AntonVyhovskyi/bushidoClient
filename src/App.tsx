@@ -4,6 +4,9 @@ import cls from './App.module.css'
 import api from './api';
 import type { AxiosError, AxiosResponse } from 'axios';
 
+import { type ITradeInfo } from './types/tradeInfoInterfacesAndTypes';
+import TradeInfoComponent from './components/TradeInfoComponent';
+
 function App() {
   const [status, setstatus] = useState<boolean>(false);
   const [tradingPaars, setTradingPaars] = useState<string>('')
@@ -11,7 +14,20 @@ function App() {
   const [inputText, setinputText] = useState<string>();
   const [feiledPass, setfeiledPass] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false)
+  const [tradeInfo, setTradeInfo] = useState<ITradeInfo[]>([])
 
+
+  useEffect(() => {
+    api.get<ITradeInfo[]>('/trade/getTradeInfo').then((res) => {
+      setTradeInfo(res.data)
+      console.log(res.data);
+      
+    })
+  }, [])
+
+  useEffect(() => {
+    console.log(tradeInfo);
+  }, [tradeInfo])
 
   useEffect(() => {
     setLoading(true)
@@ -23,9 +39,9 @@ function App() {
       } else {
         setstatus(false)
       }
-    }).finally(()=>{
-        setLoading(false)
-      })
+    }).finally(() => {
+      setLoading(false)
+    })
   }, [status])
 
   const toogleStatusHandler = () => {
@@ -44,7 +60,7 @@ function App() {
       }).catch((err: AxiosError) => {
         if (err.status === 401)
           setfeiledPass(true)
-      }).finally(()=>{
+      }).finally(() => {
         setLoading(false)
       })
     } else {
@@ -61,7 +77,7 @@ function App() {
       }).catch((err: AxiosError) => {
         if (err.status === 401)
           setfeiledPass(true)
-      }).finally(()=>{
+      }).finally(() => {
         setLoading(false)
       })
     }
@@ -69,43 +85,52 @@ function App() {
   }
 
   return (
-    <div className={cls.container}>
-      <div className={cls.logo}>
-        <div className={cls.logoImage}><img src="/samurai.svg" alt="Logo" /></div>
-        <div className={cls.logoText}>bushido</div>
+    <>
+      <div className={cls.container}>
+        <div className={cls.logo}>
+          <div className={cls.logoImage}><img src="/samurai.svg" alt="Logo" /></div>
+          <div className={cls.logoText}>bushido</div>
+        </div>
+
+        {loading && <div className={cls.preloader}>Почекай поки я отримаю відповідь від сервера</div>}
+
+        {needPass ?
+
+          <>
+            <div className={cls.pass}>
+              <input type="text" value={inputText} onChange={(e) => { setinputText(e.target.value) }} placeholder='пароль' />
+              <button onClick={toogleStatusHandler}>відправити</button>
+            </div>
+            {feiledPass &&
+              <div style={{ color: 'red' }}>невірний пароль</div>
+            }
+
+
+          </>
+          :
+          <>
+            <div className={cls.button}>
+              {status ? <button onClick={() => { setNeedPass(true) }}>stop</button> : <button onClick={() => { setNeedPass(true) }}>start</button>}
+              <div className={cls.buttonBack}></div>
+            </div>
+            <div className={cls.status}>
+              {status ? <div className={cls.statusOk}>
+                Бот зараз працює. Инструмент {tradingPaars}
+              </div > : <div className={cls.statusNoOk}>
+                Бот не працює
+              </div>}
+            </div>
+          </>
+        }
       </div>
-
-      {loading && <div className={cls.preloader}>Почекай поки я отримаю відповідь від сервера</div> }
-
-      {needPass ?
-
-        <>
-          <div className={cls.pass}>
-            <input type="text" value={inputText} onChange={(e) => { setinputText(e.target.value) }} placeholder='пароль' />
-            <button onClick={toogleStatusHandler}>відправити</button>
-          </div>
-          {feiledPass &&
-            <div style={{ color: 'red' }}>невірний пароль</div>
-          }
-
-
-        </>
-        :
-        <>
-          <div className={cls.button}>
-            {status ? <button onClick={() => { setNeedPass(true) }}>stop</button> : <button onClick={() => { setNeedPass(true) }}>start</button>}
-            <div className={cls.buttonBack}></div>
-          </div>
-          <div className={cls.status}>
-            {status ? <div className={cls.statusOk}>
-              Бот зараз працює. Инструмент {tradingPaars}
-            </div > : <div className={cls.statusNoOk}>
-              Бот не працює
-            </div>}
-          </div>
-        </>
+      {(tradeInfo && tradeInfo.length > 0) &&
+        <div className={cls.infoContainer}>
+         
+          <TradeInfoComponent infoArray={tradeInfo} />
+        </div>
       }
-    </div>
+
+    </>
   )
 }
 

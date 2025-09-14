@@ -140,3 +140,8 @@
     z-index: 22; 
     font-size: 40px;
 }
+
+.infoContainer {
+    padding-left: 10px;
+    padding-right: 10px;
+}

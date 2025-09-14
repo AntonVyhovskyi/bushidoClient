@@ -1,0 +1,40 @@
+.items {
+
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.item {
+    color: white;
+    padding: 10px;
+     border-radius: 10px;
+     margin-bottom: 5px;
+     display: flex;
+     justify-content: space-between;
+}
+
+
+
+.item * {
+   
+    color: white;
+
+}
+
+.hold {
+    border: 2px solid rgb(255, 255, 0);
+}
+
+.open {
+    border: 2px solid rgb(2, 255, 2);
+    
+}
+
+
+
+.red {
+    color: rgb(255, 0, 0);
+}
+.green {
+    color: rgb(0, 255, 0);
+}
