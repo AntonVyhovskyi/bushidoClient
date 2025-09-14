@@ -8,12 +8,13 @@ interface TradeInfoComponentProps {
 
 const TradeInfoComponent: FunctionComponent<TradeInfoComponentProps> = ({ infoArray }) => {
 
+const reverseArray = [...infoArray].reverse()
     
     return (
 
         <div className={cls.items}>
             {
-                infoArray.map((el) => {
+                reverseArray.map((el) => {
                     const { action, symbol, side, quantity, price, takeProfit, stopLoss } = el.command
                     const { pdi, mdi, adx, longAdx } = el.info.indicatorsValues
                     const { isDiContact, isFlat } = el.info
