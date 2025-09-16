@@ -36,12 +36,12 @@ const reverseArray = [...infoArray].reverse()
                                 {stopLoss && <div className={cls.red}>SL: {stopLoss}</div>}
                             </div>
                             <div className={cls.itemInfo}>
-                                <div className={cls.red}>pdi: {pdi.toFixed(2)}</div>
-                                <div className={cls.green}>mdi: {mdi.toFixed(2)}</div>
+                                <div className={cls.green}>pdi: {pdi.toFixed(2)}</div>
+                                <div className={cls.red}>mdi: {mdi.toFixed(2)}</div>
                                 <div>adx: {adx.toFixed(2)}</div>
                                 
-                                <div className={cls.red}>longPdi: {longPdi.toFixed(2)}</div>
-                                <div className={cls.green}>longMdi: {longMdi.toFixed(2)}</div>
+                                <div className={cls.green}>longPdi: {longPdi.toFixed(2)}</div>
+                                <div className={cls.red}>longMdi: {longMdi.toFixed(2)}</div>
                                 <div>longAdx: {longAdx.toFixed(2)}</div>
                                 
                             </div>
