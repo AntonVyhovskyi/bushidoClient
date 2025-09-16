@@ -16,7 +16,7 @@ const reverseArray = [...infoArray].reverse()
             {
                 reverseArray.map((el) => {
                     const { action, symbol, side, quantity, price, takeProfit, stopLoss } = el.command
-                    const { pdi, mdi, adx, longAdx } = el.info.indicatorsValues
+                    const { pdi, mdi, adx, longAdx, longMdi, longPdi } = el.info.indicatorsValues
                     const { isDiContact, isFlat } = el.info
                     const now = new Date(el.now)
                     const uniqId = el.info.indicatorsValues.longAdx.toString() + el.info.indicatorsValues.adx + el.info.indicatorsValues.mdi
@@ -36,10 +36,13 @@ const reverseArray = [...infoArray].reverse()
                                 {stopLoss && <div className={cls.red}>SL: {stopLoss}</div>}
                             </div>
                             <div className={cls.itemInfo}>
-                                <div>pdi: {pdi.toFixed(2)}</div>
-                                <div>mdi: {mdi.toFixed(2)}</div>
+                                <div style={{color: 'green'}}>pdi: {pdi.toFixed(2)}</div>
+                                <div style={{color: 'red'}}>mdi: {mdi.toFixed(2)}</div>
                                 <div>adx: {adx.toFixed(2)}</div>
                                 <div>longAdx: {longAdx.toFixed(2)}</div>
+                                <div style={{color: 'green'}}>longPdi: {longPdi.toFixed(2)}</div>
+                                <div style={{color: 'red'}}>longMdi: {longMdi.toFixed(2)}</div>
+                                
                             </div>
                             <div>
                                 <div className={isPositions ? cls.red : cls.green}>Відсутність позиції: {isPositions ? 'ні' : 'так'}</div>

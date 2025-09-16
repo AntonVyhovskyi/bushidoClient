@@ -77,7 +77,9 @@ export interface ITradeInfo {
             pdi: number,
             mdi: number,
             adx: number,
-            longAdx: number
+            longAdx: number,
+            longPdi: number,
+            longMdi: number
         },
         isDiContact: boolean,
         isFlat: boolean
